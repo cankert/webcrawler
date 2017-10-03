@@ -1,56 +1,51 @@
 extends layout
 
 block content
-    h1= title
-    p Welcome to our test
+    //h1= title
+    //p Welcome to our test
 
     // Wrapper
     #wrapper
     
         // User Info
-        #userInfo
-            h2 User Info
-            p
-                strong Name:
-                |  <span id='userInfoName'></span>
-                br
-                strong Age:
-                |  <span id='userInfoAge'></span>
-                br
-                strong Gender:
-                |  <span id='userInfoGender'></span>
-                br
-                strong Location:
-                |  <span id='userInfoLocation'></span>
+        //#userInfo
+        //    h2 User Info
+        //    p
+        //        strong Name:
+        //        |  <span id='userInfoName'></span>
+        //        br
+        //        strong Age:
+        //        |  <span id='userInfoAge'></span>
+        //        br
+        //        strong Gender:
+        //        |  <span id='userInfoGender'></span>
+        //        br
+        //        strong Location:
+        //        |  <span id='userInfoLocation'></span>
         // /USER INFO
 
-        // USER LIST
-        h2 User List
-        #userList
+        // Website LIST
+        h2 Websites to monitor
+        #websiteList
             table
                 thead
-                    th UserName
-                    th Email
+                    th Start Crawler
+                    th Stop Crawler
+                    th Website
+                    th URL
+                    th Last Downtime
                     th Edit
                     th Delete?
                 tbody
-        // /USER LIST
+        // /Website LIST
         
         // ADD USER
-        h2 Add or Update User
-        #addUser
+        h2 Add Website
+        #addWebsite
             fieldset
-                input#inputUserName(type='text', placeholder='Username')
-                input#inputUserEmail(type='text', placeholder='Email')
-                br
-                input#inputUserFullname(type='text', placeholder='Full Name')
-                input#inputUserAge(type='text', placeholder='Age')
-                br
-                input#inputUserLocation(type='text', placeholder='Location')
-                input#inputUserGender(type='text', placeholder='gender')
-                br
-                button#btnAddUser Add User
-                button#btnUpdateUser Update User
+                input#inputWebsiteName(type='text', placeholder='Username')
+                input#inputWebsiteUrl(type='text', placeholder='Email')
+                button#btnAddWebsite Add Website
         #idInfo
             p#userId 
         // /ADD USER

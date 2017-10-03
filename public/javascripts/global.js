@@ -1,5 +1,5 @@
-// Userlist data array for filliung in Info Box
-var userListData = [];
+// websiteList data array for filliung in Info Box
+var websiteListData = [];
 
 // DOM Ready ==========================================
 $(document).ready(function(){
@@ -8,19 +8,20 @@ $(document).ready(function(){
     populateTable();
 
     //Username link click
-    $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
+    //$('#websiteList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
 
     // Add User button click
-    $('#btnAddUser').on('click', addUser);
+    $('#btnAddWebsite').on('click', addWebsite);
 
     // Delete User click link
-    $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
-
+    $('#websiteList table tbody').on('click', 'td a.linkdelwebsite', deleteWebsite);
+/*
     // Edit User Info on Click
-    $('#userList table tbody').on('click', 'td a.linkedituser', editUser);
+    $('#websiteList table tbody').on('click', 'td a.linkedituser', editUser);
 
     // Update User Data on button
     $('#btnUpdateUser').on('click', updateUser);
+    */
 });
 
 // Functions ==========================================
@@ -32,27 +33,31 @@ function populateTable() {
     var tableContent = '';
 
     //jquery AJAX Call for json
-    $.getJSON( '/users/userlist',function( data ) {
+    $.getJSON( '/websites/websitelist',function( data ) {
 
-        // Stick our user data array into a userlist variable in the global object
-        userListData = data;
+        // Stick our user data array into a websiteList variable in the global object
+        websiteListData = data;
 
         // For each item in our JSON add a table row and cells to the content string
         $.each(data, function(){
             tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this._id + '">' + this.username + '</a></td>';
-            tableContent += '<td>' + this.email + '</td>';
-            tableContent += '<td><a href="#" class="linkedituser" rel="' + this._id + '">Edit</a></td>';
-            tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+            tableContent += '<td>Button Start</td>';
+            tableContent += '<td>Button Stop</td>';
+            tableContent += '<td>' +this.website +  '</td>';
+            tableContent += '<td>' +this.url +  '</td>';
+            tableContent += '<td>' +this.lastdowntime +  '</td>';
+            tableContent += '<td><a href="#" class="linkeditewebsite" rel="' + this._id + '">edit</a></td>';
+            tableContent += '<td><a href="#" class="linkdelwebsite" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
         });
 
         // Inject the whole content string into our existing HTML table
-        $('#userList table tbody').html(tableContent);
+        $('#websiteList table tbody').html(tableContent);
     });
 }
 
 // Show User info
+/*
 function showUserInfo(event){
 
     // Prevent Link from Firing
@@ -62,10 +67,10 @@ function showUserInfo(event){
     var thisId = $(this).attr('rel');
 
     // Get index of object based on id value
-    var arrayPosition = userListData.map(function(arrayItem){ return arrayItem._id; }).indexOf(thisId);
+    var arrayPosition = websiteListData.map(function(arrayItem){ return arrayItem._id; }).indexOf(thisId);
 
     //Get our User object
-    var thisUserObject = userListData[arrayPosition];
+    var thisUserObject = websiteListData[arrayPosition];
 
     //Populate Info box
     $('#userInfoName').text(thisUserObject.fullname);
@@ -73,15 +78,15 @@ function showUserInfo(event){
     $('#userInfoGender').text(thisUserObject.gender);
     $('#userInfoLocation').text(thisUserObject.location);
 
-}
+}*/
 
 // Add User
-function addUser(event){
+function addWebsite(event){
     event.preventDefault();
 
     //Super basic validation - increase errorCount variable if any fields are blank
     var errorCount = 0;
-    $('#addUser input').each(function(index, val){
+    $('#addWebsite input').each(function(index, val){
         if($(this).val() === '') {errorCount++; }
     });
 
@@ -89,28 +94,25 @@ function addUser(event){
     if(errorCount === 0) {
 
         //if its is, compile all user info into an object
-        var newUser = {
-            'username': $('#addUser fieldset input#inputUserName').val(),
-            'email': $('#addUser fieldset input#inputUserEmail').val(),
-            'fullname': $('#addUser fieldset input#inputUserFullname').val(),
-            'age': $('#addUser fieldset input#inputUserAge').val(),
-            'location': $('#addUser fieldset input#inputUserLocation').val(),
-            'gender': $('#addUser fieldset input#inputUserGender').val()
+        var newWebsite = {
+            'website': $('#addWebsite fieldset input#inputWebsiteName').val(),
+            'url': $('#addWebsite fieldset input#inputWebsiteUrl').val(),
+            'lastdowntime':''
         };
         console.log('This is the new user');
-        console.log(newUser);
-        //Use AJAX to post the object to our adduser Service
+        console.log(newWebsite);
+        //Use AJAX to post the object to our addWebsite Service
         $.ajax({
             type: 'POST',
-            data: newUser,
-            url: '/users/adduser',
+            data: newWebsite,
+            url: '/websites/addwebsite',
             dataType: 'JSON'
         }).done(function(response){
 
             // Check for successfal (blank) response
             if (response.msg === '') {
                 //Clear the form inputUserAge
-                $('#addUser fieldset input').val('');
+                $('#addWebsite fieldset input').val('');
 
                 //Update the table
                 populateTable();
@@ -129,12 +131,12 @@ function addUser(event){
 }
 
 // Delete User
-function deleteUser(event) {
+function deleteWebsite(event) {
 
     event.preventDefault();
 
     // Pop up a confirmation dialog
-    var confirmation = confirm('Are you sure you want to delete this user?');
+    var confirmation = confirm('Are you sure you want to delete this Website?');
 
     // Check and make sure the user confirmed
     if (confirmation === true) {
@@ -142,7 +144,7 @@ function deleteUser(event) {
         // If they did, do our delete
         $.ajax({
             type: 'DELETE',
-            url: '/users/deleteuser/' + $(this).attr('rel')
+            url: '/websites/deletewebsite/' + $(this).attr('rel')
         }).done(function( response ) {
 
             // Check for a successful (blank) response
@@ -172,10 +174,10 @@ function editUser(event){
     var thisId = $(this).attr('rel');
 
     // Get index of object based on id value
-    var arrayPosition = userListData.map(function(arrayItem){ return arrayItem._id; }).indexOf(thisId);
+    var arrayPosition = websiteListData.map(function(arrayItem){ return arrayItem._id; }).indexOf(thisId);
 
     //Get our User object
-    var thisUserObject = userListData[arrayPosition];
+    var thisUserObject = websiteListData[arrayPosition];
 
     //Populate edit User Box
     $('#inputUserName').val(thisUserObject.username);
@@ -202,12 +204,12 @@ function updateUser(event){
 
         //if its is, compile all user info into an object
         var updatedUser = {
-            'username': $('#addUser fieldset input#inputUserName').val(),
-            'email': $('#addUser fieldset input#inputUserEmail').val(),
-            'fullname': $('#addUser fieldset input#inputUserFullname').val(),
-            'age': $('#addUser fieldset input#inputUserAge').val(),
-            'location': $('#addUser fieldset input#inputUserLocation').val(),
-            'gender': $('#addUser fieldset input#inputUserGender').val()
+            'username': $('#addWebsite fieldset input#inputUserName').val(),
+            'email': $('#addWebsite fieldset input#inputUserEmail').val(),
+            'fullname': $('#addWebsite fieldset input#inputUserFullname').val(),
+            'age': $('#addWebsite fieldset input#inputUserAge').val(),
+            'location': $('#addWebsite fieldset input#inputUserLocation').val(),
+            'gender': $('#addWebsite fieldset input#inputUserGender').val()
         };
 
         // Get userId from paragraph as value
@@ -225,7 +227,7 @@ function updateUser(event){
             // Check for successfal (blank) response
             if (response.msg === '') {
                 //Clear the form inputUserAge
-                $('#addUser fieldset input').val('');
+                $('#addWebsite fieldset input').val('');
 
                 //Update the table
                 populateTable();
