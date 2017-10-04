@@ -23,9 +23,11 @@ router.get('/scrape/', function(req,res){
     }
 
     function updateDbEntry(req,res){
+        console.log('Starting db update');
         var db = req.db;
         var collection = db.get('websitelist');
         var entryToUpdate = req.query.id;
+        console.log(req);
         collection.updateOne(
             {'_id' : entryToUpdate},
             {$set: {'status': response.statusCode, 'responsetime':response.elapsedTime}},
@@ -38,7 +40,7 @@ router.get('/scrape/', function(req,res){
 
 
     getStatusCode();
-
+    updateDbEntry();
     res.send();
 
 });
