@@ -55,6 +55,37 @@ function populateTable() {
     });
 }
 
+//==================
+// Crawl all button
+/*function crawlAll(event){
+    event.preventDefault();
+
+    //jquery AJAX Call for json
+    $.getJSON( '/websites/websitelist',function( data ) {
+
+        // Stick our user data array into a websiteList variable in the global object
+        websiteListData = data;
+
+        $.each(data, function(){
+            var websiteToCrawl = this.url;
+            var entryId = this._Id;
+
+            console.log('starting crawl all');
+            $.ajax({
+                type: 'GET',
+                url: ('/crawler/scrape/'),
+                data: {website: websiteToCrawl, id: entryId},
+                }).done(function(response){
+                populateTable();
+                });
+        });
+    }
+)};
+*/
+
+//==================
+
+
 // Crawl now function
 function crawlNow(event){
     event.preventDefault();
