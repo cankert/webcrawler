@@ -22,10 +22,41 @@ router.get('/scrape/', function(req,res){
         });
     }
 
+    function updateDbEntry(req,res){
+        var db = req.db;
+        var collection = db.get('websitelist');
+        var entryToUpdate = req.query.id;
+        collection.updateOne(
+            {'_id' : entryToUpdate},
+            {$set: {'status': response.statusCode, 'responsetime':response.elapsedTime}},
+            function(err, result){
+            res.send(
+                (err === null) ? {msg: '' } : {msg: err }
+            );
+        });
+    }
+
+
     getStatusCode();
 
     res.send();
 
 });
+
+//Update User Route
+/*router.put('/updateuser/:id', function(req,res){
+    var db = req.db;
+    var collection = db.get('userlist');
+    var userToUpdate = req.params.id;
+    collection.updateOne({'_id' : userToUpdate},req.body, function(err, result){
+        res.send(
+            (err === null) ? {msg: '' } : {msg: err }
+        );
+    });
+});
+*/
+
+
+
 
 module.exports = router;

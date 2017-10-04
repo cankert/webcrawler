@@ -43,8 +43,9 @@ function populateTable() {
             tableContent += '<tr>';
             tableContent += '<td>' +this.website +  '</td>';
             tableContent += '<td>' +this.url +  '</td>';
-            tableContent += '<td>' +this.lastdowntime +  '</td>';
-            tableContent += '<td><a href="#" class="linkcrawlwebsite" rel="' + this.url + '">Crawl now</a></td>';
+            tableContent += '<td>' +this.status +  '</td>';
+            tableContent += '<td>' +this.responsetime + ' ms' + '</td>';
+            tableContent += '<td><a href="#" class="linkcrawlwebsite" id="' + this._id + '" rel="' + this.url + '">Crawl now</a></td>';
             tableContent += '<td><a href="#" class="linkdelwebsite" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
         });
@@ -58,13 +59,15 @@ function populateTable() {
 function crawlNow(event){
     event.preventDefault();
     var websiteToCrawl = $(this).attr('rel');
+    var entryId = $(this).attr('id');
+
     console.log('Click received');
     $.ajax({
         type: 'GET',
         url: ('/crawler/scrape/'),
-        data: {website: websiteToCrawl},
+        data: {website: websiteToCrawl, id: entryId},
         }).done(function(response){
-
+        populateTable();
     });
 }
 
