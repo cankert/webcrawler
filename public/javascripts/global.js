@@ -13,12 +13,12 @@ $(document).ready(function(){
     // Add User button click
     $('#btnAddWebsite').on('click', addWebsite);
 
-    // Delete User click link
+    // Delete Website click link
     $('#websiteList table tbody').on('click', 'td a.linkdelwebsite', deleteWebsite);
-/*
-    // Edit User Info on Click
-    $('#websiteList table tbody').on('click', 'td a.linkedituser', editUser);
 
+    // Edit User Info on Click
+    $('#websiteList table tbody').on('click', 'td a.linkcrawlwebsite', crawlNow);
+/*
     // Update User Data on button
     $('#btnUpdateUser').on('click', updateUser);
     */
@@ -41,12 +41,10 @@ function populateTable() {
         // For each item in our JSON add a table row and cells to the content string
         $.each(data, function(){
             tableContent += '<tr>';
-            tableContent += '<td>Button Start</td>';
-            tableContent += '<td>Button Stop</td>';
             tableContent += '<td>' +this.website +  '</td>';
             tableContent += '<td>' +this.url +  '</td>';
             tableContent += '<td>' +this.lastdowntime +  '</td>';
-            tableContent += '<td><a href="#" class="linkeditewebsite" rel="' + this._id + '">edit</a></td>';
+            tableContent += '<td><a href="#" class="linkcrawlwebsite" rel="' + this._id + '">Crawl now</a></td>';
             tableContent += '<td><a href="#" class="linkdelwebsite" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
         });
@@ -55,6 +53,21 @@ function populateTable() {
         $('#websiteList table tbody').html(tableContent);
     });
 }
+
+// Crawl now function
+function crawlNow(event){
+    event.preventDefault();
+    var websiteToCrawl = "http://golem.de";
+    console.log('Click received');
+    $.ajax({
+        type: 'GET',
+        url: ('/crawler/scrape/'),
+        data: {website: websiteToCrawl},
+        }).done(function(response){
+            
+    });
+}
+
 
 // Show User info
 /*
@@ -213,7 +226,7 @@ function updateUser(event){
         };
 
         // Get userId from paragraph as value
-        var id = $('#idInfo #userId').val()
+        var id = $('#idInfo #userId').val();
 
         //Use AJAX to post the object to our updateuser Service
 
