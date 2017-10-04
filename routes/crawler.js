@@ -44,38 +44,10 @@ router.get('/scrape/', function(req,res){
 
     }
 
-        /*
-        collection.updateOne(myquery, newvalues, function(err, result){
-            if (err) throw err;
-            console.log("1 document updated");
-        });
-
-
-        collection.find({},{},function(e,docs){
-            console.log(docs);
-        });
-
-        */
-
-
     getStatusCode();
     updateDbEntry();
     res.send();
 
 });
-
-//Update User Route
-/*router.put('/updateuser/:id', function(req,res){
-    var db = req.db;
-    var collection = db.get('userlist');
-    var userToUpdate = req.params.id;
-    collection.updateOne({'_id' : userToUpdate},req.body, function(err, result){
-        res.send(
-            (err === null) ? {msg: '' } : {msg: err }
-        );
-    });
-});
-*/
-
 
 module.exports = router;
