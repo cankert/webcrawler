@@ -44,7 +44,7 @@ function populateTable() {
             tableContent += '<td>' +this.website +  '</td>';
             tableContent += '<td>' +this.url +  '</td>';
             tableContent += '<td>' +this.lastdowntime +  '</td>';
-            tableContent += '<td><a href="#" class="linkcrawlwebsite" rel="' + this._id + '">Crawl now</a></td>';
+            tableContent += '<td><a href="#" class="linkcrawlwebsite" rel="' + this.url + '">Crawl now</a></td>';
             tableContent += '<td><a href="#" class="linkdelwebsite" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
         });
@@ -57,14 +57,14 @@ function populateTable() {
 // Crawl now function
 function crawlNow(event){
     event.preventDefault();
-    var websiteToCrawl = "http://golem.de";
+    var websiteToCrawl = $(this).attr('rel');
     console.log('Click received');
     $.ajax({
         type: 'GET',
         url: ('/crawler/scrape/'),
         data: {website: websiteToCrawl},
         }).done(function(response){
-            
+
     });
 }
 

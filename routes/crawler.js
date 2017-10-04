@@ -4,11 +4,6 @@ var request = require('request');
 var cheerio = require('cheerio');
 var URL = require('url-parse');
 
-
-
-
-
-
 router.get('/scrape/', function(req,res){
     //var pageToVisit = req.data;
 
@@ -17,14 +12,13 @@ router.get('/scrape/', function(req,res){
     console.log('2. Starting Crawl for this Website: ' + websiteToCrawl);
 
     function getStatusCode(){
-      request(websiteToCrawl, function(error, response, body) {
-        if(error) {
-          console.log("Error: " + error);
-        }
-        // Check status code (200 is HTTP OK)
-          console.log("3. Visiting Website " + websiteToCrawl);
-          console.log("4. Status code of Website: " + response.statusCode);
-          console.log("4. Status code of Website: " + response);
+        request.get({
+            url: websiteToCrawl,
+            time: true
+        },function(err,response){
+            console.log('3. Visiting Website ' + websiteToCrawl);
+            console.log('4. Status code of Website: ' + response.statusCode);
+            console.log('5. Response Time: ' + response.elapsedTime + 'ms');
         });
     }
 
