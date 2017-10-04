@@ -10,6 +10,7 @@ var monk = require('monk');
 var db = monk('localhost:27017/webcrawler');
 var index = require('./routes/index');
 var websites = require('./routes/websites');
+var crawler = require('./routes/crawler');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use(function(req,res,next){
 //normal Routes
 app.use('/', index);
 app.use('/websites', websites);
+app.use('/crawler', crawler);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

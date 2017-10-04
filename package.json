@@ -2,6 +2,7 @@
     "name": "webcrawler",
     "version": "0.0.0",
     "private": true,
+    "author": "Christian",
     "scripts": {
         "start": "node ./bin/www"
     },
@@ -19,6 +20,3 @@
         "cheerio":"latest"
     }
 }
-
-
-    
