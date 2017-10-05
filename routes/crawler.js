@@ -63,17 +63,66 @@ function updateDbEntry(req,responseCode,responseTime, entryToUpdate){
 function crawlAll(req){
     var dbConnection = req.db;
     var collection = dbConnection.get('websitelist');
-    var websiteListData = "";
-    collection.find({},{},function(e,docs){
-        websiteListData = docs;
+    //var websiteListData = [];
+
+    collection.find().forEach( function(myDoc) { print( "website: " + myDoc.website ); } );
+
+
+    console.log(websites);
+
+}
+
+
+
+    /*collection.find({},function(e,docs){
+        //websiteListData = JSON.stringify(docs);
+
+        docs.each(){
+            console.log('hello');
+        }
+
+
+
+        //websiteListData = docs;
         console.log('Data received');
-        console.log(websiteListData);
+        //console.log(websiteListData);
+
         //console.log(websiteListData);
     });
+        console.log(websiteListData.length);
+        //data = JSON.parse(websiteListData); // you missed that...
+        for(var i = 0; i < websiteListData.length; i++) {
+            //var website = new Person();
+            //website = data[i].website;
+            console.log('FFFFOOO');
+        }
+}
 
-    _.forEach([websiteListData,2], function(value) {
-        console.log('value');
-    });
+
+
+
+
+
+
+
+
+
+
+
+/*
+website = websiteListData._id;
+website.forEach( function( item ) {
+    console.log( item );
+});
+
+_.forEach([websiteListData], function(value) {
+    console.log('FOOO');
+});
+
+
+
+
+
 
     var arr = Object.values(websiteListData);
     console.info(arr);
@@ -87,13 +136,13 @@ function crawlAll(req){
         console.log(value);
     });
 
-
+*/
 
 
     //websiteListData.forEach( function( item ) {
     //    console.log( item );
     //});
-}
+
 
             /*websiteListData.forEach(function(website, index){
             var websiteToCrawl = this.url;

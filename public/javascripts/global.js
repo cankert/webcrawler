@@ -153,7 +153,8 @@ function addWebsite(event){
         var newWebsite = {
             'website': $('#addWebsite fieldset input#inputWebsiteName').val(),
             'url': $('#addWebsite fieldset input#inputWebsiteUrl').val(),
-            'lastdowntime':''
+            'status':'',
+            'responsetime':''
         };
         console.log('This is the new user');
         console.log(newWebsite);
