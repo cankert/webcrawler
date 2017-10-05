@@ -13,6 +13,8 @@ $(document).ready(function(){
     // Add User button click
     $('#btnAddWebsite').on('click', addWebsite);
 
+    $('#btnCrawlAll').on('click', crawlAll);
+
     // Delete Website click link
     $('#websiteList table tbody').on('click', 'td a.linkdelwebsite', deleteWebsite);
 
@@ -57,7 +59,7 @@ function populateTable() {
 
 //==================
 // Crawl all button
-/*function crawlAll(event){
+function crawlAll(event){
     event.preventDefault();
 
     //jquery AJAX Call for json
@@ -65,10 +67,10 @@ function populateTable() {
 
         // Stick our user data array into a websiteList variable in the global object
         websiteListData = data;
-
+        console.log(websiteListData);
         $.each(data, function(){
             var websiteToCrawl = this.url;
-            var entryId = this._Id;
+            var entryId = this._id;
 
             console.log('starting crawl all');
             $.ajax({
@@ -76,12 +78,18 @@ function populateTable() {
                 url: ('/crawler/scrape/'),
                 data: {website: websiteToCrawl, id: entryId},
                 }).done(function(response){
-                populateTable();
-                });
+                    setTimeout(function(){
+                        populateTable();
+                    }, 2000);
+
+            });
         });
-    }
-)};
-*/
+    });
+
+
+}
+
+
 
 //==================
 
@@ -98,8 +106,9 @@ function crawlNow(event){
         url: ('/crawler/scrape/'),
         data: {website: websiteToCrawl, id: entryId},
         }).done(function(response){
-        populateTable();
+            populateTable();
     });
+
 }
 
 

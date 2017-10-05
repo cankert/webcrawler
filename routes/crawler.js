@@ -3,51 +3,94 @@ var router = express.Router();
 var request = require('request');
 var cheerio = require('cheerio');
 var URL = require('url-parse');
-var responseCode = '';
-var responseTime = '';
+
+// Routings ===================================================================================
 
 router.get('/scrape/', function(req,res){
-    //var pageToVisit = req.data;
 
-    console.log('1. /scrape got called, starting Crawl');
-    var websiteToCrawl = req.query.website;
+
     var entryToUpdate = req.query.id;
+    var websiteToCrawl = req.query.website;
+
+    getStatusCode(req,websiteToCrawl, entryToUpdate);
+
+    res.send();
+});
+
+router.get('/crawl/', function(req,res){
+
+    crawlAll(req);
+
+    res.send();
+});
+
+// Functions ====================================================================================
+
+function getStatusCode(req,websiteToCrawl, entryToUpdate){
+    request.get({
+        url: websiteToCrawl,
+        time: true
+    },function(err,response){
+        var responseCode = response.statusCode;
+        var responseTime = response.elapsedTime;
+
+        console.log('1. /scrape got called, starting Crawl');
+        console.log('2. Starting Crawl for this Website: ' + websiteToCrawl);
+        console.log('3. Visiting Website ' + websiteToCrawl);
+        console.log('4. Status code of Website: ' + responseCode);
+        console.log('5. Response Time: ' + responseTime + 'ms');
+
+        updateDbEntry(req,responseCode,responseTime, entryToUpdate);
+    });
+}
+
+function updateDbEntry(req,responseCode,responseTime, entryToUpdate){
     var db = req.db;
     var collection = db.get('websitelist');
 
-    console.log('2. Starting Crawl for this Website: ' + websiteToCrawl);
+    console.log('6. Starting db update for "' + entryToUpdate + '"');
 
-    function getStatusCode(){
-        request.get({
-            url: websiteToCrawl,
-            time: true
-        },function(err,response){
-            responseCode = response.statusCode;
-            responseTime = response.elapsedTime;
+    collection.update(
+        { "_id" : entryToUpdate },
+        { "$set" : { 'status' : responseCode, 'responsetime' : responseTime } },
+        { "upsert" : true }
+    );
+    console.log('7. Success on Update');
+}
 
-            console.log('3. Visiting Website ' + websiteToCrawl);
-            console.log('4. Status code of Website: ' + responseCode);
-            console.log('5. Response Time: ' + responseTime + 'ms');
+// Crawl all Function
+function crawlAll(req){
+    var dbConnection = req.db;
+    var collection = dbConnection.get('websitelist');
+    var websiteListData = "";
+    collection.find({},{},function(e,docs){
+        websiteListData = docs;
+        console.log('Data received');
+        console.log(websiteListData.length);
+        console.log(websiteListData);
 
-        });
-    }
+    });
+    websiteListData.forEach( function( item ) {
+        console.log( item );
+    });
+}
 
-    function updateDbEntry(){
-        console.log('6. Starting db update for "' + entryToUpdate + '"');
+            /*websiteListData.forEach(function(website, index){
+            var websiteToCrawl = this.url;
+            var entryToUpdate = this._id;
 
-        collection.update(
-            { "_id" : entryToUpdate },
-            { "$set" : { 'status' : responseCode, 'responsetime' : responseTime } },
-            { "upsert" : true }
-        );
-        console.log('7. Success on Update');
+            getStatusCode(req,websiteToCrawl, entryToUpdate);
+        });*/
 
-    }
 
-    getStatusCode();
-    updateDbEntry();
-    res.send();
+            /*$.ajax({
+                type: 'GET',
+                url: ('/crawler/scrape/'),
+                data: {website: websiteToCrawl, id: entryId},
+                }).done(function(response){
+                    // Function when done
+            });*/
 
-});
+
 
 module.exports = router;
