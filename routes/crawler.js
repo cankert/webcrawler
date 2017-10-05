@@ -3,6 +3,7 @@ var router = express.Router();
 var request = require('request');
 var cheerio = require('cheerio');
 var URL = require('url-parse');
+var _ = require('lodash');
 
 // Routings ===================================================================================
 
@@ -66,13 +67,32 @@ function crawlAll(req){
     collection.find({},{},function(e,docs){
         websiteListData = docs;
         console.log('Data received');
-        console.log(websiteListData.length);
         console.log(websiteListData);
+        //console.log(websiteListData);
+    });
 
+    _.forEach([websiteListData,2], function(value) {
+        console.log('value');
     });
-    websiteListData.forEach( function( item ) {
-        console.log( item );
+
+    var arr = Object.values(websiteListData);
+    console.info(arr);
+
+    arr.forEach(function(current_value) {
+            //console.log(current_value);
+            console.log('TEST');
+        });
+
+    _.forEach([1,2,3], function(value) {
+        console.log(value);
     });
+
+
+
+
+    //websiteListData.forEach( function( item ) {
+    //    console.log( item );
+    //});
 }
 
             /*websiteListData.forEach(function(website, index){
