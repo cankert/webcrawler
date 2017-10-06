@@ -59,107 +59,23 @@ function updateDbEntry(req,responseCode,responseTime, entryToUpdate){
     console.log('7. Success on Update');
 }
 
-// Crawl all Function
+// Crawl all Function on request call
 function crawlAll(req){
     var dbConnection = req.db;
     var collection = dbConnection.get('websitelist');
-    //var websiteListData = [];
 
-    collection.find().forEach( function(myDoc) { print( "website: " + myDoc.website ); } );
+    collection.find({},{},function(e,docs){
 
+        for (var key in docs) {
+          var obj = docs[key];
+          console.log(obj);
+          website = obj.url;
+          id = obj._id;
 
-    console.log(websites);
+          getStatusCode(req,website,id);
+      }
+  });
 
 }
-
-
-
-    /*collection.find({},function(e,docs){
-        //websiteListData = JSON.stringify(docs);
-
-        docs.each(){
-            console.log('hello');
-        }
-
-
-
-        //websiteListData = docs;
-        console.log('Data received');
-        //console.log(websiteListData);
-
-        //console.log(websiteListData);
-    });
-        console.log(websiteListData.length);
-        //data = JSON.parse(websiteListData); // you missed that...
-        for(var i = 0; i < websiteListData.length; i++) {
-            //var website = new Person();
-            //website = data[i].website;
-            console.log('FFFFOOO');
-        }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-website = websiteListData._id;
-website.forEach( function( item ) {
-    console.log( item );
-});
-
-_.forEach([websiteListData], function(value) {
-    console.log('FOOO');
-});
-
-
-
-
-
-
-    var arr = Object.values(websiteListData);
-    console.info(arr);
-
-    arr.forEach(function(current_value) {
-            //console.log(current_value);
-            console.log('TEST');
-        });
-
-    _.forEach([1,2,3], function(value) {
-        console.log(value);
-    });
-
-*/
-
-
-    //websiteListData.forEach( function( item ) {
-    //    console.log( item );
-    //});
-
-
-            /*websiteListData.forEach(function(website, index){
-            var websiteToCrawl = this.url;
-            var entryToUpdate = this._id;
-
-            getStatusCode(req,websiteToCrawl, entryToUpdate);
-        });*/
-
-
-            /*$.ajax({
-                type: 'GET',
-                url: ('/crawler/scrape/'),
-                data: {website: websiteToCrawl, id: entryId},
-                }).done(function(response){
-                    // Function when done
-            });*/
-
-
 
 module.exports = router;
