@@ -47,16 +47,22 @@ function getStatusCode(req,websiteToCrawl, entryToUpdate){
 
 function updateDbEntry(req,responseCode,responseTime, entryToUpdate){
     var db = req.db;
-    var collection = db.get('websitelist');
+    var collection = db.get('crawl');
+    var currentDate = Date.now();
 
     console.log('6. Starting db update for "' + entryToUpdate + '"');
+    console.log(currentDate);
 
-    collection.update(
-        { "_id" : entryToUpdate },
-        { "$set" : { 'status' : responseCode, 'responsetime' : responseTime } },
-        { "upsert" : true }
-    );
-    console.log('7. Success on Update');
+    var myObj = {
+    'websiteid': entryToUpdate,
+    'status': responseCode,
+    'responsetime': responseTime,
+    'date': currentDate
+    }
+
+    collection.insert(myObj, function(){
+        console.log('7. Success on Update');
+    });
 }
 
 // Crawl all Function on request call
