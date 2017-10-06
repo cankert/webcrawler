@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cron = require('node-cron');
+var restler = require('restler');
 //Database
 var mongo = require('mongodb');
 var monk = require('monk');
@@ -53,5 +55,18 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+var task = cron.schedule('*/10 * * * * *', function(){
+    console.log('running a task every minute');
+    var getResp = function(url){
+        restler.get(url).on('complete', function(response){
+            console.log('Called API');
+        });
+    };
+    getResp('http://localhost:3000/crawler/crawl');
+}, true);
+
+task.start();
+
 
 module.exports = app;

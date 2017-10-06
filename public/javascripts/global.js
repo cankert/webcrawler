@@ -26,6 +26,11 @@ $(document).ready(function(){
     */
 });
 
+setInterval(function(){
+    populateTable();
+}, 2000);
+
+
 // Functions ==========================================
 
 //Fill table with Data

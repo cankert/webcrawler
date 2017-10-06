@@ -17,7 +17,9 @@
         "mongodb": "^2.2.25",
         "monk": "^4.0.0",
         "morgan": "~1.7.0",
+        "node-cron": "^1.2.1",
         "request": "latest",
+        "restler": "^3.4.0",
         "serve-favicon": "~2.3.2",
         "url-parse": "^1.0.5"
     }
