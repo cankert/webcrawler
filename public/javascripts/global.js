@@ -16,7 +16,7 @@ $(document).ready(function(){
     $('#btnCrawlAll').on('click', crawlAll);
 
     // Delete Website click link
-    $('#websiteList table tbody').on('click', 'td a.linkdelwebsite', deleteWebsite);
+    $('#websiteList').on('click', 'td a.linkdelwebsite', deleteWebsite);
 
     // Edit User Info on Click
     $('#websiteList table tbody').on('click', 'td a.linkcrawlwebsite', crawlNow);
@@ -47,22 +47,52 @@ function populateTable() {
 
         // For each item in our JSON add a table row and cells to the content string
         $.each(data, function(){
+            var statusCode = [];
+            var responseTime = [];
+
+            tableContent += '<h1>'+this.website + '</h1><a href="#" class="linkdelwebsite" rel="' + this._id + '">'+'Delete</a>';
+            tableContent += '<table>';
+            tableContent += '<th>Datum</th>';
+            tableContent += '<th>URL</th>';
+            tableContent += '<th>Statuscode</th>';
+            tableContent += '<th>Responsetime</th>';
             tableContent += '<tr>';
-            tableContent += '<td>' +this.website +  '</td>';
-            tableContent += '<td>' +this.url +  '</td>';
-            tableContent += '<td>' +this.status +  '</td>';
-            tableContent += '<td>' +this.responsetime + ' ms' + '</td>';
-            tableContent += '<td><a href="#" class="linkcrawlwebsite" id="' + this._id + '" rel="' + this.url + '">Crawl now</a></td>';
-            tableContent += '<td><a href="#" class="linkdelwebsite" rel="' + this._id + '">delete</a></td>';
+
+
+            // Ab hier sollte eigentlich das Jquery für die Statusabfrage starten und TDs befüllen
+            var id = this._id;
+            getStatus(id);
+
             tableContent += '</tr>';
+            tableContent += '</table>';
         });
 
         // Inject the whole content string into our existing HTML table
-        $('#websiteList table tbody').html(tableContent);
+        $('#websiteList').html(tableContent);
     });
 }
 
 //==================
+
+function getStatus(id){
+
+$.getJSON( '/websites/getstatus/' + id,function( data ) {
+        console.log(data);
+
+        // For each item in our JSON add a table row and cells to the content string
+        $.each(data, function(){
+
+            tableContent += '<td>' +this.date +'</td>';
+            tableContent += '<td>' +this.url +  '</td>';
+            tableContent += '<td>' +this.status +  '</td>';
+            tableContent += '<td>' +this.responsetime + ' ms' + '</td>';
+            console.log(this.url);
+        });
+    });
+}
+
+
+
 // Crawl all button
 function crawlAll(event){
     event.preventDefault();

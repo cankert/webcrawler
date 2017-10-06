@@ -66,7 +66,7 @@ var task = cron.schedule('*/10 * * * * *', function(){
     getResp('http://localhost:3000/crawler/crawl');
 }, true);
 
-task.start();
+//task.start();
 
 
 module.exports = app;

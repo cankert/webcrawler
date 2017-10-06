@@ -7,8 +7,27 @@ router.get('/websitelist', function (req,res){
     var db = req.db;
     var collection = db.get('websitelist');
     collection.find({},{},function(e,docs){
+        console.log(docs);
         res.json(docs);
     });
+
+
+
+});
+
+//Get status
+
+router.get('/getstatus/:id', function (req,res){
+    var db = req.db;
+    var collection = db.get('crawl');
+    var id = req.params.id;
+    collection.find({'websiteid' : 'ObjectId("'+id+'")'},function(e,docs){
+        console.log('/getstatus was called');
+        console.log(docs);
+        res.json(docs);
+
+    });
+
 });
 
 //Add User Route

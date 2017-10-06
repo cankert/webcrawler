@@ -74,7 +74,6 @@ function crawlAll(req){
 
         for (var key in docs) {
           var obj = docs[key];
-          console.log(obj);
           website = obj.url;
           id = obj._id;
 
