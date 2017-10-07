@@ -56,7 +56,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var task = cron.schedule('*/10 * * * * *', function(){
+var task = cron.schedule('* * * * *', function(){
     console.log('running a task every minute');
     var getResp = function(url){
         restler.get(url).on('complete', function(response){

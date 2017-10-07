@@ -46,7 +46,7 @@ function populateTable() {
         websiteListData = data;
 
         // For each item in our JSON add a table row and cells to the content string
-        $.each(data, function(){
+        $.each(websiteListData, function(){
             var statusCode = [];
             var responseTime = [];
 
@@ -57,18 +57,37 @@ function populateTable() {
             tableContent += '<th>Statuscode</th>';
             tableContent += '<th>Responsetime</th>';
             tableContent += '<tr>';
-
-
-            // Ab hier sollte eigentlich das Jquery für die Statusabfrage starten und TDs befüllen
-            var id = this._id;
-            getStatus(id);
-
             tableContent += '</tr>';
             tableContent += '</table>';
+            tableContent += 'WOOOOOOO'
+            // Ab hier sollte eigentlich das Jquery für die Statusabfrage starten und TDs befüllen
+            var id = this._id;
+
+            $.getJSON( '/websites/getstatus/' + id,function( data ) {
+
+                    websitedata = data;
+
+                    // For each item in our JSON add a table row and cells to the content string
+                    /*$.each(websitedata, function(){
+                        console.log('TEST');
+                        tableContent += '<td>' +this.date +'</td>';
+                        tableContent += '<td>' +this.url +  '</td>';
+                        tableContent += '<td>' +this.status +  '</td>';
+                        tableContent += '<td>' +this.responsetime + ' ms' + '</td>';
+
+
+                    });*/
+            });
+
         });
 
-        // Inject the whole content string into our existing HTML table
+
+
+
         $('#websiteList').html(tableContent);
+
+        // Inject the whole content string into our existing HTML table
+
     });
 }
 
@@ -76,19 +95,7 @@ function populateTable() {
 
 function getStatus(id){
 
-$.getJSON( '/websites/getstatus/' + id,function( data ) {
-        console.log(data);
 
-        // For each item in our JSON add a table row and cells to the content string
-        $.each(data, function(){
-
-            tableContent += '<td>' +this.date +'</td>';
-            tableContent += '<td>' +this.url +  '</td>';
-            tableContent += '<td>' +this.status +  '</td>';
-            tableContent += '<td>' +this.responsetime + ' ms' + '</td>';
-            console.log(this.url);
-        });
-    });
 }
 
 

@@ -35,12 +35,6 @@ function getStatusCode(req,websiteToCrawl, entryToUpdate){
         var responseCode = response.statusCode;
         var responseTime = response.elapsedTime;
 
-        console.log('1. /scrape got called, starting Crawl');
-        console.log('2. Starting Crawl for this Website: ' + websiteToCrawl);
-        console.log('3. Visiting Website ' + websiteToCrawl);
-        console.log('4. Status code of Website: ' + responseCode);
-        console.log('5. Response Time: ' + responseTime + 'ms');
-
         updateDbEntry(req,responseCode,responseTime, entryToUpdate);
     });
 }
@@ -50,8 +44,7 @@ function updateDbEntry(req,responseCode,responseTime, entryToUpdate){
     var collection = db.get('crawl');
     var currentDate = Date.now();
 
-    console.log('6. Starting db update for "' + entryToUpdate + '"');
-    console.log(currentDate);
+    console.log('## Starting db update for "' + entryToUpdate + '"');
 
     var myObj = {
     'websiteid': entryToUpdate,
@@ -61,7 +54,7 @@ function updateDbEntry(req,responseCode,responseTime, entryToUpdate){
     }
 
     collection.insert(myObj, function(){
-        console.log('7. Success on Update');
+        console.log('## Success on Update');
     });
 }
 
