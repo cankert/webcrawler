@@ -27,27 +27,27 @@ router.get('/crawl/', function(req,res){
 
 // Functions ====================================================================================
 
-function getStatusCode(req,websiteToCrawl, entryToUpdate){
+function getStatusCode(req,website,id){
     request.get({
-        url: websiteToCrawl,
+        url: website,
         time: true
     },function(err,response){
         var responseCode = response.statusCode;
         var responseTime = response.elapsedTime;
 
-        updateDbEntry(req,responseCode,responseTime, entryToUpdate);
+        updateDbEntry(req,responseCode,responseTime, id);
     });
 }
 
-function updateDbEntry(req,responseCode,responseTime, entryToUpdate){
+function updateDbEntry(req,responseCode,responseTime, id){
     var db = req.db;
     var collection = db.get('crawl');
     var currentDate = Date.now();
 
-    console.log('## Starting db update for "' + entryToUpdate + '"');
+    console.log('## Inserting new Status entry for ' + id );
 
     var myObj = {
-    'websiteid': entryToUpdate,
+    'websiteid': id,
     'status': responseCode,
     'responsetime': responseTime,
     'date': currentDate

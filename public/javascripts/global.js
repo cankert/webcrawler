@@ -28,7 +28,9 @@ $(document).ready(function(){
 
 setInterval(function(){
     populateTable();
-}, 2000);
+}, 20000);
+
+
 
 
 // Functions ==========================================
