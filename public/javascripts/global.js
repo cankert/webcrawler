@@ -19,7 +19,7 @@ $(document).ready(function(){
     $('#websiteList').on('click', 'td a.linkdelwebsite', deleteWebsite);
 
     // Edit User Info on Click
-    $('#websiteList table tbody').on('click', 'td a.linkcrawlwebsite', crawlNow);
+    //$('#websiteList table tbody').on('click', 'td a.linkcrawlwebsite', crawlNow);
 /*
     // Update User Data on button
     $('#btnUpdateUser').on('click', updateUser);
@@ -40,10 +40,12 @@ function populateTable() {
 
     //Empty content string
     var tableContent = '';
+    var completeTable = '';
+
 
     //jquery AJAX Call for json
     $.getJSON( '/websites/websitelist',function( data ) {
-
+        var tableStatusContent = '';
         // Stick our user data array into a websiteList variable in the global object
         websiteListData = data;
 
@@ -58,45 +60,108 @@ function populateTable() {
             tableContent += '<th>URL</th>';
             tableContent += '<th>Statuscode</th>';
             tableContent += '<th>Responsetime</th>';
-            tableContent += '<tr>';
-            tableContent += '</tr>';
             tableContent += '</table>';
-            tableContent += 'WOOOOOOO'
+
             // Ab hier sollte eigentlich das Jquery für die Statusabfrage starten und TDs befüllen
             var id = this._id;
+            //getStatus(id, tableContent);
 
-            $.getJSON( '/websites/getstatus/' + id,function( data ) {
+            $.getJSON( '/websites/getstatus/' + id,function( objects ) {
+                websitedata = objects;
+                //console.log(websitedata);
 
-                    websitedata = data;
+                //For each item in our JSON add a table row and cells to the content string
+                $.each(websitedata, function(){
+                    //tableContent += '<table>';
+                    tableStatusContent += '<table>';
+                    tableStatusContent += '<tr>';
+                    tableStatusContent += '<td>' +this.date +'</td>';
+                    tableStatusContent += '<td>' +this.status +  '</td>';
+                    tableStatusContent += '<td>' +this.responsetime + ' ms' + '</td>';
+                    tableStatusContent += '</tr>';
+                    tableStatusContent += '</table>';
 
-                    // For each item in our JSON add a table row and cells to the content string
-                    /*$.each(websitedata, function(){
-                        console.log('TEST');
-                        tableContent += '<td>' +this.date +'</td>';
-                        tableContent += '<td>' +this.url +  '</td>';
-                        tableContent += '<td>' +this.status +  '</td>';
-                        tableContent += '<td>' +this.responsetime + ' ms' + '</td>';
+                });
 
-
-                    });*/
+                //$('#websiteStatusData').html(tableStatusContent);
+                //console.log(tableStatusContent);
+                completeTable = tableContent + tableStatusContent;
+                //console.log(completeTable);
+                writeTable(completeTable);
             });
+            //console.log(tableContent);
+
+
 
         });
 
 
+    });
 
 
-        $('#websiteList').html(tableContent);
 
         // Inject the whole content string into our existing HTML table
+        /*var id = '59db2a69d0b57bf34a988bed';
+        $.getJSON( '/websites/getstatus/' + id,function( objects ) {
+            websitedata = objects;
+            console.log(websitedata);
+            //For each item in our JSON add a table row and cells to the content string
+            $.each(websitedata, function(){
+                console.log('TEST');
+                //tableContent += '<table>';
+                tableContent += '<table>';
+                tableContent += '<tr>';
+                tableContent += '<td>' +this.date +'</td>';
+                tableContent += '<td>' +this.status +  '</td>';
+                tableContent += '<td>' +this.responsetime + ' ms' + '</td>';
+                tableContent += '</tr>';
+                tableContent += '</table>';
 
-    });
+            });
+            $('#websiteStatusData').html(tableContent);
+        });*/
+
 }
+
+
+
+
 
 //==================
 
-function getStatus(id){
+function writeTable (tableHead, tableBody){
+var tableContent = tableHead + tableBody;
 
+
+$('#websiteList').html(tableContent);
+
+}
+
+
+
+
+
+
+function getStatus(id, tableContent){
+    var id = '59db2a69d0b57bf34a988bed';
+    $.getJSON( '/websites/getstatus/' + id,function( objects ) {
+        websitedata = objects;
+        console.log(websitedata);
+        //For each item in our JSON add a table row and cells to the content string
+        $.each(websitedata, function(){
+            console.log('TEST');
+            //tableContent += '<table>';
+            tableContent += '<table>';
+            tableContent += '<tr>';
+            tableContent += '<td>' +this.date +'</td>';
+            tableContent += '<td>' +this.status +  '</td>';
+            tableContent += '<td>' +this.responsetime + ' ms' + '</td>';
+            tableContent += '</tr>';
+            tableContent += '</table>';
+
+        });
+        $('#websiteList').html(tableContent);
+    });
 
 }
 

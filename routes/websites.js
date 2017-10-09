@@ -21,14 +21,13 @@ router.get('/getstatus/:id', function (req,res){
     var collection = db.get('crawl');
     var documentId = req.params.id;
     //var ObjectId = ObjectId(documentId);
-    var query = {'websiteid': monk.id(documentId)};
-    console.log(query);
+    var query = {'websiteid': documentId};
+    //console.log(query);
 
-    //db.crawl.find({"websiteid" : ObjectId("59d8a6fe2451a7481e85250e")})
-    collection.find(query,function(err,item){
-        res.json(item);
-        console.log(item);
-    });
+    collection.find({}).then((website) => {
+        //console.log(website);
+        res.json(website);
+    })
 
 });
 
