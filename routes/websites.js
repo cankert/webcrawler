@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const monk = require('monk')
 
 //Get websiteList
 
@@ -24,7 +25,7 @@ router.get('/getstatus/:id', function (req,res){
     var query = {'websiteid': documentId};
     //console.log(query);
 
-    collection.find({}).then((website) => {
+    collection.find({'websiteid': monk.id(documentId)}).then((website) => {
         //console.log(website);
         res.json(website);
     })

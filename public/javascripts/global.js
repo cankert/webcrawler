@@ -24,11 +24,12 @@ $(document).ready(function(){
     // Update User Data on button
     $('#btnUpdateUser').on('click', updateUser);
     */
+
 });
 
 setInterval(function(){
     populateTable();
-}, 20000);
+}, 40000);
 
 
 
@@ -41,30 +42,39 @@ function populateTable() {
     //Empty content string
     var tableContent = '';
     var completeTable = '';
+    var websiteInfo = getWebsiteList();
 
+
+    var firstPromise = $.get('/websites/websitelist');
+    var secondPromise = $.get('/websites/getstatus/59db53717dc6220ace651185');
+
+    $.when(firstPromise, secondPromise).done(function(firstData, secondData) {
+      console.log('Loaded Data');
+      websiteInfo = firstData;
+    });
+    console.log(websiteInfo);
 
     //jquery AJAX Call for json
     $.getJSON( '/websites/websitelist',function( data ) {
         var tableStatusContent = '';
+        var tableContent = '';
         // Stick our user data array into a websiteList variable in the global object
         websiteListData = data;
 
         // For each item in our JSON add a table row and cells to the content string
         $.each(websiteListData, function(){
-            var statusCode = [];
-            var responseTime = [];
+
 
             tableContent += '<h1>'+this.website + '</h1><a href="#" class="linkdelwebsite" rel="' + this._id + '">'+'Delete</a>';
             tableContent += '<table>';
             tableContent += '<th>Datum</th>';
-            tableContent += '<th>URL</th>';
             tableContent += '<th>Statuscode</th>';
             tableContent += '<th>Responsetime</th>';
             tableContent += '</table>';
 
             // Ab hier sollte eigentlich das Jquery für die Statusabfrage starten und TDs befüllen
             var id = this._id;
-            //getStatus(id, tableContent);
+
 
             $.getJSON( '/websites/getstatus/' + id,function( objects ) {
                 websitedata = objects;
@@ -83,18 +93,12 @@ function populateTable() {
 
                 });
 
-                //$('#websiteStatusData').html(tableStatusContent);
-                //console.log(tableStatusContent);
-                completeTable = tableContent + tableStatusContent;
-                //console.log(completeTable);
-                writeTable(completeTable);
             });
             //console.log(tableContent);
-
-
+            //console.log(tableContent);
 
         });
-
+        $('#websiteList').html(tableContent);
 
     });
 
@@ -129,7 +133,7 @@ function populateTable() {
 
 //==================
 
-function writeTable (tableHead, tableBody){
+function writeTable (response){
 var tableContent = tableHead + tableBody;
 
 
@@ -138,12 +142,29 @@ $('#websiteList').html(tableContent);
 }
 
 
+function getWebsiteList(){
+    return $.ajax({
+      url: '/websites/websitelist/',
+      type: 'GET',
+      dataType: 'jsonp',
+      timeout: 3000
+    });
+
+}
 
 
 
+function getStatus(data){
+    var id = data.id;
 
-function getStatus(id, tableContent){
-    var id = '59db2a69d0b57bf34a988bed';
+    return $.ajax({
+      url: '/websites/getstatus/' + id,
+      type: 'GET',
+      dataType: 'json',
+      timeout: 3000
+    });
+
+    /*
     $.getJSON( '/websites/getstatus/' + id,function( objects ) {
         websitedata = objects;
         console.log(websitedata);
@@ -160,8 +181,7 @@ function getStatus(id, tableContent){
             tableContent += '</table>';
 
         });
-        $('#websiteList').html(tableContent);
-    });
+    });*/
 
 }
 
