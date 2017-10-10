@@ -39,32 +39,15 @@ $(document).ready(function(){
 // Crawl all button
 function crawlAll(event){
     event.preventDefault();
-
-    //jquery AJAX Call for json
-    $.getJSON( '/websites/websitelist',function( data ) {
-
-        // Stick our user data array into a websiteList variable in the global object
-        websiteListData = data;
-        console.log(websiteListData);
-        $.each(data, function(){
-            var websiteToCrawl = this.url;
-            var entryId = this._id;
-
-            console.log('starting crawl all');
-            $.ajax({
-                type: 'GET',
-                url: ('/crawler/scrape/'),
-                data: {website: websiteToCrawl, id: entryId},
-                }).done(function(response){
-                    setTimeout(function(){
-                        //populateTable();
-                    }, 2000);
+    console.log('starting crawl all');
+    $.ajax({
+        type: 'GET',
+        url: ('/crawler/crawl/'),
+        data: '',
+        }).done(function(response){
 
             });
-        });
-    });
-
-
+alert('Crawled all');
 }
 
 

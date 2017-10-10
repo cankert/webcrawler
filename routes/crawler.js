@@ -9,7 +9,6 @@ var _ = require('lodash');
 
 router.get('/scrape/', function(req,res){
 
-
     var entryToUpdate = req.query.id;
     var websiteToCrawl = req.query.website;
 
