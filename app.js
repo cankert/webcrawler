@@ -56,8 +56,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var task = cron.schedule('* * * * *', function(){
-    console.log('running a task every minute');
+var task = cron.schedule('*/5 * * * *', function(){
+    console.log('running a task every 5 minutes');
     var getResp = function(url){
         restler.get(url).on('complete', function(response){
             console.log('Called API');

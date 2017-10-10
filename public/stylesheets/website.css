@@ -97,7 +97,8 @@ a {
 }
 
 #addWebsite div fieldset button{
-
+    padding:5px;
+    height:25px;
      margin-right:5px;
 }
 
