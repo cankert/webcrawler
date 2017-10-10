@@ -7,17 +7,19 @@ block content
             div
                 h2=title
                 a(href="/") Zurück zur Liste
-
-                table
+                <br><br>
+                <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Durchsuchen...">
+                table#myTable
                     thead
-                        th Datum
-                        th Statuscode
-                        th Response Time
-                        tbody
+                        tr.header
+                            th Datum
+                            th Statuscode
+                            th Response Time
+                    tbody
                         each data in statusdata
                             tr
                                 td=data.date
                                 td=data.status
-                                td=data.responsetime
+                                td=data.responsetime + ' ms'
                 <br>
                 a(href="/") Zurück zur Liste

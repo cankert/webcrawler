@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
     var db = req.db;
     var collection = db.get('websitelist');
     collection.find({},{},function(e,docs){
-        res.render('index', {title: 'Test' , websitedata: docs });
+        res.render('index', {title: 'Website Checker' , websitedata: docs });
     });
 });
 
