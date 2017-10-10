@@ -48,6 +48,7 @@ function crawlAll(event){
 
             });
 alert('Crawled all');
+location.reload();
 }
 
 
@@ -104,6 +105,7 @@ function addWebsite(event){
         alert('Please fill in all fields');
         return false;
     }
+    location.reload();
 }
 
 // Delete Website
@@ -140,4 +142,5 @@ function deleteWebsite(event) {
         // If they said no to the confirm, do nothing
         return false;
     }
+    location.reload();
 }
