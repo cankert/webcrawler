@@ -1,20 +1,23 @@
-doctype html
-html
-    head
-        title= title
-        link(rel='stylesheet', href='/stylesheets/style.css')
-    body
-        script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
-        script(src='/javascripts/global.js')
+extends layout
 
-        // Website LIST
-        h2= title
-        #websiteStatusData
-            table
-                thead
-                    th Datum
-                    th Status
-                    th Response Time
-                    tbody
-        // /Website LIST
-    // /WRAPPER
+block content
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
+    -var statuslist = statusdata
+        #statuslist
+            div
+                h2 Title
+                a(href="/") Zurück zur Liste
+
+                table
+                    thead
+                        th Datum
+                        th Statuscode
+                        th Response Time
+                        tbody
+                        each data in statusdata
+                            tr
+                                td=data.date
+                                td=data.status
+                                td=data.responsetime
+                <br>
+                a(href="/") Zurück zur Liste

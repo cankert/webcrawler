@@ -42,9 +42,9 @@ function getStatusCode(req,website,id){
 function updateDbEntry(req,responseCode,responseTime, id){
     var db = req.db;
     var collection = db.get('crawl');
-    var currentDate = Date.now();
+    var currentDate = new Date ();
 
-    console.log('## Inserting new Status entry for ' + id );
+    console.log('## Inserting new Status entry for ' + id + 'on ' + currentDate );
 
     var myObj = {
     'websiteid': id,

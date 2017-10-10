@@ -1,0 +1,108 @@
+body {
+  padding: 30px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+h2 {
+	margin:0 0 .5em 0;
+}
+
+a {
+  color: #00B7FF;
+}
+
+
+
+#statuslist div {
+	margin: auto;
+    width: 70%;
+
+}
+
+    #statuslist div table {
+	       border:0px solid red;
+           background: white;
+           width: 100%;
+           border-collapse: collapse;
+           margin-top: 10px;
+     }
+     #statuslist div table th {
+ 	       text-align: left;
+           border: 1px solid black;
+      }
+
+      #statuslist div table tr {
+           text-align: left;
+           border: 1px solid black;
+       }
+
+        #statuslist div table tr td {
+  	         text-align: left;
+             border: 1px solid black;
+         }
+
+
+         #websitelist div {
+         	margin: auto;
+             width: 70%;
+             border: 0px solid black;
+         }
+
+             #websitelist div table {
+         	        border:0px solid red;
+                    background: white;
+                    width: 100%;
+                    border-collapse: collapse;
+
+              }
+              #websitelist div table th {
+          	       text-align: left;
+                   border: 1px solid black;
+                   padding:10px;
+               }
+
+               #websitelist div table tr {
+                    text-align: left;
+                    border: 1px solid black;
+                    padding:10px;
+
+                }
+
+                 #websitelist div table tr td {
+           	         text-align: left;
+                      border: 1px solid black;
+                      padding:10px;
+
+                  }
+
+
+#addWebsite div {
+    margin: auto;
+    margin-top:10px;
+     width: 70%;
+     border-right: 1px solid black;
+     border-left: 1px solid black;
+     border-bottom: 1px solid black;
+     border-top: 1px solid black;
+}
+
+#addWebsite div fieldset {
+     border:0px solid black;
+     padding-bottom:10px;
+}
+#addWebsite div fieldset input{
+     border:1px solid black;
+     padding:5px;
+     margin-right:5px;
+}
+
+#addWebsite div fieldset button{
+
+     margin-right:5px;
+}
+
+#addWebsite div p {
+     margin:none;
+     padding:0px;
+     padding-left:10px;
+}

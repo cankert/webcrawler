@@ -25,7 +25,7 @@ router.get('/getstatus/:id', function (req,res){
     var query = {'websiteid': documentId};
     //console.log(query);
 
-    collection.find({'websiteid': monk.id(documentId)}).then((website) => {
+    collection.find({'websiteid': monk.id(documentId)}, {sort: {responsetime:1}}).then((website) => {
         //console.log(website);
         res.json(website);
     })
@@ -51,6 +51,7 @@ router.delete('/deleteWebsite/:id', function(req,res){
     collection.remove({'_id' : websiteToDelete}, function(err){
         res.send((err === null) ? {msg: '' } : {msg: '' } );
     });
+
 });
 /*
 //Update User Route

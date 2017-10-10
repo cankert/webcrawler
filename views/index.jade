@@ -1,55 +1,45 @@
 extends layout
 
 block content
+    -var websitelist = websitedata
     //h1= title
     //p Welcome to our test
 
     // Wrapper
     #wrapper
-
-        // User Info
-        //#userInfo
-        //    h2 User Info
-        //    p
-        //        strong Name:
-        //        |  <span id='userInfoName'></span>
-        //        br
-        //        strong Age:
-        //        |  <span id='userInfoAge'></span>
-        //        br
-        //        strong Gender:
-        //        |  <span id='userInfoGender'></span>
-        //        br
-        //        strong Location:
-        //        |  <span id='userInfoLocation'></span>
-        // /USER INFO
-
         // Website LIST
-        h2 Websites to monitor
-        #websiteList
-        #websiteStatusData
-            table
-                thead
-                    th Website
-                    th URL
-                    th Status Code
-                    th Response Time
-                    th Crawl
-                    th Delete?
-                    tbody
+
+        #websitelist
+            div
+                h2 Überwachte Websites
+                table
+                    thead
+                        th Website
+                        th URL
+                        th Delete?
+                        tbody
+                        each data in websitedata
+                            tr
+                               td!='<a href=/website/' + data._id + '>' + data.website + '</a>'
+                               td=data.url
+                               td!='<a href="#" class="linkdelwebsite" rel="' + data._id + '"> Delete </a>'
         // /Website LIST
 
         // ADD USER
-        h2 Add Website
+
+        
         #addWebsite
-            fieldset
-                input#inputWebsiteName(type='text', placeholder='Website')
-                input#inputWebsiteUrl(type='text', placeholder='URL')
-                button#btnAddWebsite Add Website
-                button#btnCrawlAll Crawl All
+
+
+            div
+                p Add Website
+                fieldset
+                    input#inputWebsiteName(type='text', placeholder='Website')
+                    input#inputWebsiteUrl(type='text', placeholder='URL')
+                    button#btnAddWebsite Add Website
+                    button#btnCrawlAll Crawl All
         #idInfo
             p#userId
         // /ADD USER
 
     // /WRAPPER
-    //include /javascripts/global.js
