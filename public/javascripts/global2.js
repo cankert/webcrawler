@@ -26,10 +26,10 @@ $(document).ready(function(){
 
 });
 
-/*setInterval(function(){
-    populateTable();
-}, 40000);
-*/
+setInterval(function(){
+    location.reload();
+}, 10000);
+
 
 
 
@@ -47,7 +47,7 @@ function crawlAll(event){
         }).done(function(response){
 
             });
-alert('Crawled all');
+//alert('Crawled all');
 location.reload();
 }
 
@@ -96,7 +96,8 @@ function addWebsite(event){
             'website': $('#addWebsite fieldset input#inputWebsiteName').val(),
             'url': $('#addWebsite fieldset input#inputWebsiteUrl').val(),
             'status':'',
-            'responsetime':''
+            'responsetime':'',
+            'health':''
         };
         console.log('This is the new user');
         console.log(newWebsite);

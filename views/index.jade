@@ -16,12 +16,14 @@ block content
                     thead
                         th Website
                         th URL
+                        th Health
                         th Delete?
                         tbody
                         each data in websitedata
                             tr
                                td!='<a href=/website/' + data._id + '/' + data.website + '>' + data.website + '</a>'
                                td=data.url
+                               td=data.health
                                td!='<a href="#" class="linkdelwebsite" rel="' + data._id + '"> Delete </a>'
         // /Website LIST
 

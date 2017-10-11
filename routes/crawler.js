@@ -33,10 +33,35 @@ function getStatusCode(req,website,id){
     },function(err,response){
         var responseCode = response.statusCode;
         var responseTime = response.elapsedTime;
+        if (responseCode==200){
+            var healthStatus = 'OK';
+            setHealth(req,healthStatus,id);
+            updateDbEntry(req,responseCode,responseTime, id);
 
-        updateDbEntry(req,responseCode,responseTime, id);
+        } else {
+            var healthStatus = 'PROBLEM';
+            setHealth(req,healthStatus,id);
+            updateDbEntry(req,responseCode,responseTime, id);
+        }
     });
 }
+
+function setHealth(req, healthStatus, id){
+    var db = req.db;
+    var collection = db.get('websitelist');
+
+    collection.update(
+        {'_id' : id},
+        {$set:
+            {
+                'health' : healthStatus
+            }
+        }
+    )
+}
+
+
+
 
 function updateDbEntry(req,responseCode,responseTime, id){
     var db = req.db;
@@ -49,7 +74,8 @@ function updateDbEntry(req,responseCode,responseTime, id){
     'websiteid': id,
     'status': responseCode,
     'responsetime': responseTime,
-    'date': currentDate
+    'date': currentDate,
+    'health': ''
     }
 
     collection.insert(myObj, function(){
