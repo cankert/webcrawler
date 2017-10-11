@@ -11,20 +11,23 @@ block content
 
         #websitelist
             div
-                h2 Überwachte Websites
+                h2 Website Checker
                 table
                     thead
                         th Website
                         th URL
-                        th Health
-                        th Delete?
+                        th.centered Health
+                        th.centered Delete?
                         tbody
                         each data in websitedata
                             tr
-                               td!='<a href=/website/' + data._id + '/' + data.website + '>' + data.website + '</a>'
-                               td=data.url
-                               td=data.health
-                               td!='<a href="#" class="linkdelwebsite" rel="' + data._id + '"> Delete </a>'
+                                td!='<a href=/website/' + data._id + '/' + data.website + '>' + data.website + '</a>'
+                                td=data.url
+                                if data.health == "OK"
+                                    td.centered!='<i class="fa fa-check-circle fa-2x" style="color:green">'
+                                else
+                                    td.centered!='<i class="fa fa-exclamation-circle fa-2x" style="color:red">'
+                                td.centered!='<a href="#" class="linkdelwebsite" rel="' + data._id + '"> Delete </a>'
         // /Website LIST
 
         // ADD USER

@@ -18,6 +18,10 @@ a {
     width: 70%;
 
 }
+#statuslist div input{
+    padding: 10px;
+
+}
 
     #statuslist div table {
 	       border:0px solid red;
@@ -29,6 +33,9 @@ a {
      #statuslist div table th {
  	       text-align: left;
            border: 1px solid black;
+           background-color: slategray;
+           color: white;
+           padding: 10px;
       }
 
       #statuslist div table tr {
@@ -39,6 +46,7 @@ a {
         #statuslist div table tr td {
   	         text-align: left;
              border: 1px solid black;
+             padding:10px;
          }
 
 
@@ -59,7 +67,13 @@ a {
           	       text-align: left;
                    border: 1px solid black;
                    padding:10px;
+                   background-color: slategray;
+                   color:white;
                }
+               #websitelist div table th.centered {
+           	       text-align: center;
+
+                }
 
                #websitelist div table tr {
                     text-align: left;
@@ -74,10 +88,17 @@ a {
                       padding:10px;
 
                   }
+                  #websitelist div table tr td.centered {
+            	       text-align: center;
+
+
+                   }
 
 
 #addWebsite div {
     margin: auto;
+    background-color: slategray;
+    color: white;
     margin-top:10px;
      width: 70%;
      border-right: 1px solid black;
@@ -88,7 +109,7 @@ a {
 
 #addWebsite div fieldset {
      border:0px solid black;
-     padding-bottom:10px;
+     padding-bottom:20px;
 }
 #addWebsite div fieldset input{
      border:1px solid black;
