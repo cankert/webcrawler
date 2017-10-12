@@ -5,21 +5,22 @@ block content
     -var statuslist = statusdata
         #statuslist
             div
-                h2=title
-                a(href="/") Zurück zur Liste
-                <br><br>
+                p.title!=title + '<a href="/">Zurück zur Liste</a>'
                 <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Durchsuchen...">
                 table#myTable
                     thead
                         tr.header
                             th Datum
-                            th Statuscode
-                            th Response Time
+                            th.centered Statuscode
+                            th.centered Response Time
                     tbody
                         each data in statusdata
                             tr
                                 td=data.date
-                                td=data.status
-                                td=data.responsetime + ' ms'
+                                if data.status == "200"
+                                    td.centered!=data.status +' <i class="fa fa-check-circle fa-1x" style="color:green">'
+                                else
+                                    td.centered!=data.status +' <i class="fa fa-exclamation-circle fa-1x" style="color:red">'
+                                td.centered=data.responsetime + ' ms'
                 <br>
                 a(href="/") Zurück zur Liste

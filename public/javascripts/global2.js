@@ -1,6 +1,6 @@
 // websiteList data array for filliung in Info Box
 var websiteListData = [];
-const notifier = require('node-notifier');
+//const notifier = require('node-notifier');
 // DOM Ready ==========================================
 $(document).ready(function(){
 
@@ -27,11 +27,11 @@ $(document).ready(function(){
 });
 
 setInterval(function(){
-    location.reload();
+    $('#maintable').load("/ #maintable");
 }, 10000);
 
 
-notifier.notify('Go empty the dishwasher!');
+//notifier.notify('Go empty the dishwasher!');
 
 
 // Functions ==========================================

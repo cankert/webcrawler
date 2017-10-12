@@ -7,15 +7,32 @@ h2 {
 	margin:0 0 .5em 0;
 }
 
-a {
-  color: #00B7FF;
+#statuslist div a {
+  color: white;
+
+  float:right;
 }
 
+#statuslist input {
+    width:50%;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
 
+div p.title{
+    margin:10px;
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-right: 20px;
+}
 
 #statuslist div {
 	margin: auto;
+    background-color: slategray;
+    padding:5px;
+    color: white;
     width: 70%;
+    border:0px solid black;
 
 }
 #statuslist div input{
@@ -26,6 +43,7 @@ a {
     #statuslist div table {
 	       border:0px solid red;
            background: white;
+           color: black;
            width: 100%;
            border-collapse: collapse;
            margin-top: 10px;
@@ -37,6 +55,10 @@ a {
            color: white;
            padding: 10px;
       }
+      #statuslist div table th.centered {
+  	       text-align: center;
+
+       }
 
       #statuslist div table tr {
            text-align: left;
@@ -48,6 +70,10 @@ a {
              border: 1px solid black;
              padding:10px;
          }
+         #statuslist div table tr td.centered {
+   	         text-align: center;
+
+          }
 
 
          #websitelist div {

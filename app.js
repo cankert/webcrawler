@@ -13,7 +13,7 @@ var db = monk('localhost:27017/webcrawler');
 var index = require('./routes/index');
 var websites = require('./routes/websites');
 var crawler = require('./routes/crawler');
-const notifier = require('node-notifier');
+//const notifier = require('node-notifier');
 var app = express();
 
 // view engine setup
